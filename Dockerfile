@@ -76,6 +76,6 @@ COPY ./home/scripts/object_detection/utils /home/scripts/object_detection/utils/
 COPY ./home/scripts/object_detection/protos /home/scripts/object_detection/protos/
 COPY ./home/scripts/object_detection/data /home/scripts/object_detection/data/
 
-CMD ["cd", "/home", "jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
 
 # # # # ~ docker build -t jamescrosbie/object_detection:latest .
