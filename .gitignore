@@ -1,0 +1,12 @@
+
+/.pytest_cache
+
+#YOLO Weights - https://pjreddie.com/darknet/yolo/
+/data
+
+#checkpoings
+/home/scripts/.ipynb_checkpoints/
+#TF setup
+/home/scripts/object_detection/*
+
+/home/samples/*

@@ -1,0 +1,10 @@
+version : "3"
+services:
+    yolo-app:
+        image: jamescrosbie/object_detection:latest
+        ports:
+            # local host : docker host
+            - "8888:8888"
+        volumes:
+            # local file location : container location
+            - ./samples:/home/samples
