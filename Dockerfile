@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
     python-pip \
     python-dev \
     git \
+    vim \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
     wget
 
 RUN pip install --upgrade pip
@@ -36,9 +40,6 @@ ENTRYPOINT ["/usr/bin/tini", "--"]
 RUN cd "/" && \
     git clone https://github.com/thtrieu/darkflow.git 
 
-#replace loader.py file in build directory
-COPY ./home/scripts/loader.py /darkflow/utils/loader.py
-
 #run setup
 RUN cd "/darkflow" && \
     python setup.py build_ext --inplace && \
@@ -46,35 +47,10 @@ RUN cd "/darkflow" && \
     cd "/"  && \
     rm -rf "/darkflow"
 
-WORKDIR /home
+WORKDIR /scripts
 
 # #set up directory for files
-RUN mkdir /data && \
-    cd "/home" && \
-    mkdir logs && \
-    mkdir scripts && \
-    mkdir samples && \
-    cd "scripts" && \
-    mkdir object_detection && \
-    cd "object_detection" && \
-    mkdir core && \
-    mkdir utils && \
-    mkdir protos && \
-    mkdir data && \
-    cd "/"
-
-#YOLO object detection
-COPY ./data/*.cfg /data/ 
-COPY ./data/*.weights /data/
-
-#script files
-COPY ./home/scripts/*.ipynb /home/scripts/ 
-
-#TensorFlow's object detection
-COPY ./home/scripts/object_detection/core /home/scripts/object_detection/core/
-COPY ./home/scripts/object_detection/utils /home/scripts/object_detection/utils/
-COPY ./home/scripts/object_detection/protos /home/scripts/object_detection/protos/
-COPY ./home/scripts/object_detection/data /home/scripts/object_detection/data/
+COPY ./scripts /scripts/
 
 CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
 
