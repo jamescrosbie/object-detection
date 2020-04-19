@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     python-dev \
     git \
     vim \
+    ffmpeg \
     libsm6 \
     libxext6 \
     libxrender-dev \
@@ -25,10 +26,14 @@ RUN pip install \
     pillow \
     contextlib2 \
     numpy \
+    scipy \
+    h5py \
+    scikit-image \
     lxml \
     matplotlib \
     jupyter \
-    tensorflow==1.15
+    tensorflow==1.15 \
+    keras
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
 ENV TINI_VERSION v0.6.0
@@ -54,4 +59,4 @@ COPY ./scripts /scripts/
 
 CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
 
-# # # # ~ docker build -t jamescrosbie/object_detection:latest .
+# ~ docker build -t jamescrosbie/object_detection:latest .
